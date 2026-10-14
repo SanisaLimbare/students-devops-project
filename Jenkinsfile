@@ -2,6 +2,10 @@
 pipeline {
     agent any
 
+    environment {
+        PATH = "/Users/sanisalimbare/.docker/bin:/Applications/Docker.app/Contents/Resources/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -25,19 +29,19 @@ pipeline {
         }
 
         stage('Build Docker Image') {
-             steps {
-                 sh '/Users/sanisalimbare/.docker/bin/docker build -t student-devops-app .'
-    }
-}
+            steps {
+                sh '/Users/sanisalimbare/.docker/bin/docker build -t student-devops-app .'
+            }
+        }
 
         stage('Deploy Container') {
-             steps {
-                 sh '''
-            /Users/sanisalimbare/.docker/bin/docker rm -f student-app || true
-            /Users/sanisalimbare/.docker/bin/docker run -d --name student-app -p 5001:5001 student-devops-app
-        '''
-    }
-}
+            steps {
+                sh '''
+                    /Users/sanisalimbare/.docker/bin/docker rm -f student-app || true
+                    /Users/sanisalimbare/.docker/bin/docker run -d --name student-app -p 5001:5001 student-devops-app
+                '''
+            }
+        }
 
         stage('Verify Deployment') {
             steps {
@@ -63,13 +67,4 @@ pipeline {
             echo 'Pipeline failed. Check the console output.'
         }
     }
-}
-pipeline {
-    agent any
-
-    environment {
-        PATH = "/Users/sanisalimbare/.docker/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-    }
-
-    // Keep your existing stages and post section here
 }
