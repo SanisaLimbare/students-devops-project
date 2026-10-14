@@ -25,20 +25,19 @@ pipeline {
         }
 
         stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t student-devops-app .'
-            }
-        }
+             steps {
+                 sh '/Users/sanisalimbare/.docker/bin/docker build -t student-devops-app .'
+    }
+}
 
         stage('Deploy Container') {
-            steps {
-                sh '''
-                    docker rm -f student-app || true
-                    docker run -d --name student-app \
-                        -p 5001:5001 student-devops-app
-                '''
-            }
-        }
+             steps {
+                 sh '''
+            /Users/sanisalimbare/.docker/bin/docker rm -f student-app || true
+            /Users/sanisalimbare/.docker/bin/docker run -d --name student-app -p 5001:5001 student-devops-app
+        '''
+    }
+}
 
         stage('Verify Deployment') {
             steps {
