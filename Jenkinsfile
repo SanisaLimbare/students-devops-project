@@ -65,3 +65,12 @@ pipeline {
         }
     }
 }
+pipeline {
+    agent any
+
+    environment {
+        PATH = "/Users/sanisalimbare/.docker/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    }
+
+    // Keep your existing stages and post section here
+}
